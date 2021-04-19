@@ -58,11 +58,21 @@ public class EditTitleActivity extends AppCompatActivity {
        */
       this.isEditing = true;
 
-      fabStartEdit.setVisibility(View.GONE);
-      fabEditDone.setVisibility(View.VISIBLE);
-      textViewTitle.setVisibility(View.GONE);
-      editTextTitle.setText(textViewTitle.getText());
-      editTextTitle.setVisibility(View.VISIBLE);
+      fabStartEdit.animate()
+              .alpha(0f)
+              .setDuration(150L)
+              .withEndAction(() -> {
+                fabStartEdit.setVisibility(View.GONE);
+                textViewTitle.setVisibility(View.GONE);
+                editTextTitle.setText(textViewTitle.getText());
+                fabEditDone.setVisibility(View.VISIBLE);
+                fabEditDone.animate()
+                        .alpha(1f)
+                        .setDuration(150L)
+                        .start();
+                editTextTitle.setVisibility(View.VISIBLE);
+              })
+              .start();
     });
 
     // handle clicks on "done edit"
@@ -79,14 +89,21 @@ public class EditTitleActivity extends AppCompatActivity {
       to complete (1.) & (2.), start by just changing visibility. only add animations after everything else is ready
        */
       this.isEditing = false;
-
-      fabEditDone.setVisibility(View.GONE);
-      fabStartEdit.setVisibility(View.VISIBLE);
-      editTextTitle.setVisibility(View.GONE);
-      textViewTitle.setText(editTextTitle.getText());
-      textViewTitle.setVisibility(View.VISIBLE);
-
-
+      fabEditDone.animate()
+              .alpha(0f)
+              .setDuration(150L)
+              .withEndAction(() -> {
+                fabEditDone.setVisibility(View.GONE);
+                editTextTitle.setVisibility(View.GONE);
+                textViewTitle.setText(editTextTitle.getText());
+                fabStartEdit.setVisibility(View.VISIBLE);
+                fabStartEdit.animate()
+                        .alpha(1f)
+                        .setDuration(150L)
+                        .start();
+                textViewTitle.setVisibility(View.VISIBLE);
+              })
+              .start();
     });
   }
 
@@ -108,6 +125,6 @@ public class EditTitleActivity extends AppCompatActivity {
     to work with views, you will need to find them first.
     to find views call `findViewById()` in a same way like in `onCreate()`
      */
-
   }
+
 }
