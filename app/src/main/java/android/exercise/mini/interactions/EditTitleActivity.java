@@ -60,6 +60,7 @@ public class EditTitleActivity extends AppCompatActivity {
 
       fabStartEdit.animate()
               .alpha(0f)
+              .translationY(30)
               .setDuration(150L)
               .withEndAction(() -> {
                 fabStartEdit.setVisibility(View.GONE);
@@ -68,6 +69,7 @@ public class EditTitleActivity extends AppCompatActivity {
                 fabEditDone.setVisibility(View.VISIBLE);
                 fabEditDone.animate()
                         .alpha(1f)
+                        .translationY(-30)
                         .setDuration(150L)
                         .start();
                 editTextTitle.setVisibility(View.VISIBLE);
@@ -91,6 +93,7 @@ public class EditTitleActivity extends AppCompatActivity {
       this.isEditing = false;
       fabEditDone.animate()
               .alpha(0f)
+              .translationY(30)
               .setDuration(150L)
               .withEndAction(() -> {
                 fabEditDone.setVisibility(View.GONE);
@@ -99,6 +102,7 @@ public class EditTitleActivity extends AppCompatActivity {
                 fabStartEdit.setVisibility(View.VISIBLE);
                 fabStartEdit.animate()
                         .alpha(1f)
+                        .translationY(-30)
                         .setDuration(150L)
                         .start();
                 textViewTitle.setVisibility(View.VISIBLE);
@@ -125,6 +129,34 @@ public class EditTitleActivity extends AppCompatActivity {
     to work with views, you will need to find them first.
     to find views call `findViewById()` in a same way like in `onCreate()`
      */
+
+    // find all views
+    FloatingActionButton fabStartEdit = findViewById(R.id.fab_start_edit);
+    FloatingActionButton fabEditDone = findViewById(R.id.fab_edit_done);
+    TextView textViewTitle = findViewById(R.id.textViewPageTitle);
+    EditText editTextTitle = findViewById(R.id.editTextPageTitle);
+
+    if (this.isEditing) {
+      fabEditDone.animate()
+              .alpha(0f)
+              .translationY(30)
+              .setDuration(150L)
+              .withEndAction(() -> {
+                fabEditDone.setVisibility(View.GONE);
+                editTextTitle.setVisibility(View.GONE);
+                fabStartEdit.setVisibility(View.VISIBLE);
+                fabStartEdit.animate()
+                        .alpha(1f)
+                        .translationY(-30)
+                        .setDuration(150L)
+                        .start();
+                textViewTitle.setVisibility(View.VISIBLE);
+              })
+              .start();
+    }
+    else {
+      super.onBackPressed();
+    }
   }
 
 }
