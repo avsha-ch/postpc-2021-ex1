@@ -153,6 +153,7 @@ public class EditTitleActivity extends AppCompatActivity {
                 textViewTitle.setVisibility(View.VISIBLE);
               })
               .start();
+      this.isEditing = false;
     }
     else {
       super.onBackPressed();
